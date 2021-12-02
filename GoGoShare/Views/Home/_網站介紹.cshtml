@@ -1,0 +1,67 @@
+﻿<section class="ftco-section services-section">
+    <div class="container">
+        <div class="row d-flex">
+            <div class="col-md-6 order-md-last heading-section pl-md-5 ftco-animate d-flex align-items-center">
+				<div class="w-100">
+					<span class="subheading">Welcome to go go Share</span>
+					<h2 class="mb-4">開始你的旅程</h2>
+					@if (Session["Id"] == null)
+					{
+						<p>
+							身為旅人<br /><br />
+							是否曾經從網路上、ig上事先搜尋好景點、美食，到了當地發現景點人滿為患，美食店家大排長龍？
+							<br />
+							是否旅遊經驗Po上網分享卻被吐槽只吃觀光客美食、逛觀光景點？
+							<br />
+							是否不想被當做只會走觀光行程的旅客？<br />
+						</p><hr />
+						<p>
+							身為分享家<br /><br />
+							是否家裡有空閒房間？<br />
+							是否私藏私人景點、在地美食卻無人可分享？<br />
+						</p>
+						<p>Join us！</p>
+						<a href="/SignUp" class="btn btn-primary">加入我們</a>
+					}
+					else
+                    {
+						<a href="/Search" class="btn btn-primary">旅人</a>
+						<a href="/Post" class="btn btn-primary">分享家</a>
+					}
+				</div>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-12 col-lg-6 d-flex align-self-stretch ftco-animate">
+                        <div class="services services-1 color-1 d-block img"
+                             style="background-image: url(../../images/services-1.jpg);">
+                            <div class="icon d-flex align-items-center justify-content-center">
+                                <span class="flaticon-tour-guide"></span>
+                            </div>
+                            <div class="media-body">
+                                <h3 class="heading mb-3">旅人Traveler</h3>
+                                <p>
+                                     Enhance Your Travel Experience！
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-6 d-flex align-self-stretch ftco-animate">
+                        <div class="services services-1 color-2 d-block img"
+                             style="background-image: url(../../images/services-2.jpg);">
+                            <div class="icon d-flex align-items-center justify-content-center">
+                                <span class="flaticon-tour-guide"></span>
+                            </div>
+                            <div class="media-body">
+                                <h3 class="heading mb-3">分享家Sharer</h3>
+								<p>
+									The More You Give the More You Get！
+								</p>
+                            </div>
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

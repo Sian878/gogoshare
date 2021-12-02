@@ -1,0 +1,66 @@
+﻿@using GoGoShare.Models
+@model Search
+
+@{
+    ViewBag.Title = Model.標題;
+}
+
+@*@section HtmlHeadEnd{ 需要用的話請取消註解 }*@
+
+@Html.Partial("_搜尋抬頭", Model.輪播文章)
+
+<div id="抬頭"></div>
+
+@Html.Partial("_搜尋欄位")
+
+@if (Model.標題 != "主題旅遊")
+{
+    <div class="slider-text text-center mt-5">
+        <h1 class="bread" style="color: #808080;">@Model.標題</h1>
+    </div>
+}
+
+<section class="ftco-section">
+    <div class="container">
+        @Html.Partial("_搜尋結果", Model.搜尋結果)
+    </div>
+</section>
+
+@section HtmlBodyEnd{
+    <script>
+        //var searchbtn = $("#btn");
+        //var form = $('form');
+        //$('form').submit(function (e) {
+        //    e.preventDefault();
+        //});
+
+        //$("#btn").click(function () {
+        //    console.log("Submitted", form.serialize(), form.serializeArray());
+    //});
+    var Login = '@Session["Name"]';
+    $(function () {
+        $(".collection").hide();
+        if (Login != "")
+            $(".collection").show();
+    })
+
+    $(document).ready(function () {
+        $(".heart").on("click", function (e) {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("加入收藏","Search")',
+                data: { id: $(e.target).attr('article-id') },
+            });
+            $(this).toggleClass("is-active");
+        })
+
+        @foreach (var 文章 in Model.搜尋結果)
+        {
+            if (Model.收藏文章.Find(p => p.Id == 文章.Id) != null)
+            {
+                @Html.Raw($"$('.heart[article-id=\"{文章.Id}\"').toggleClass('is-active');");
+            }
+        }
+    });
+    </script>
+}

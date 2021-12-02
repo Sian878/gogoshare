@@ -1,0 +1,86 @@
+﻿<section id="搜尋" class="ftco-section ftco-no-pb">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="search-wrap-1 ftco-animate">
+                    <form action="/Search/By" method="POST" class="search-property-1">
+                        <div class="row no-gutters">
+                            <div class="col-lg d-flex">
+                                <div class="form-group p-4 border-0">
+                                    <label for="#">搜尋</label>
+                                    <div class="form-field">
+                                        <div class="icon"><span class="fa fa-search"></span></div>
+                                        <input name="result" type="text" class="form-control" placeholder="尋找地點、美食...">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg d-flex">
+                                <div class="form-group p-4">
+                                    <label for="#">活動類型</label>
+                                    <div class="form-field">
+                                        <div class="select-wrap">
+                                            <div class="icon"><span class="fa fa-chevron-down"></span></div>
+											<select name="active" id="" class="form-control">
+												<option value="">請選擇</option>
+												<option value="room">出租房間</option>
+												<option value="food">共享美食</option>
+												<option value="trip">分享旅程</option>
+											</select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg d-flex">
+                                <div class="form-group p-4">
+                                    <label for="#">開始時間</label>
+                                    <div class="form-field">
+                                        <div class="icon"><span class="fa fa-calendar"></span></div>
+                                        <input name="starttime" type="text" class="form-control checkin_date" placeholder="Start Date">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg d-flex">
+                                <div class="form-group p-4">
+                                    <label for="#">結束時間</label>
+                                    <div class="form-field">
+                                        <div class="icon"><span class="fa fa-calendar"></span></div>
+                                        <input name="endtime" type="text" class="form-control checkout_date" placeholder="End Date">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg d-flex">
+                                <div class="form-group p-4">
+                                    <label for="#">預估點數</label>
+                                    <div class="form-field">
+                                        <div class="select-wrap">
+                                            <div class="icon"><span class="fa fa-chevron-down"></span></div>
+                                            <select name="point" id="" class="form-control">
+                                                <option value="500">500 P</option>
+                                                <option value="1000">1,000 P</option>
+                                                <option value="1500">1,500 P</option>
+                                                <option value="2000">2,000 P</option>
+                                                <option value="2500">2,500 P</option>
+                                                <option value="3000">3,000 P</option>
+                                                <option value="3500">3,500 P</option>
+                                                <option value="4000">4,000 P</option>
+                                                <option value="4500">4,500 P</option>
+                                                <option value="5000">5,000 P</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg d-flex">
+                                <div class="form-group d-flex w-100 border-0">
+                                    <div class="form-field w-100 align-items-center d-flex">
+                                        <input id="btn" type="submit" value="Search" class="align-self-stretch form-control btn btn-primary">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,217 @@
+﻿@using GoGoShare.Models
+@model List<文章>
+
+@{
+    ViewBag.Title = "我的旅程文章";
+    ViewBag.isScroll = "true";
+}
+
+@section HtmlHeadEnd{
+    @*<link href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/css/bootstrap.min.css" rel="stylesheet">*@
+    @*<link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">*@
+    <link rel="stylesheet" href="~/Content/mypost.css" />
+    @*<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">*@
+}
+
+<section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('../../images/bg_1.jpg');">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-center">
+            <div class="col-md-9 ftco-animate pb-5 text-center">
+                <p class="breadcrumbs"><span class="mr-2"><a href="/">Home <i class="fa fa-chevron-right"></i></a></span> <span class="mr-2"><a href="index.html">我的收藏文章<i class="fa fa-chevron-right"></i></a></span></p>
+                <h1 class="mb-0 bread">我的收藏文章</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<div class="container">
+    <div class="row flex-lg-nowrap">
+        <div class="col">
+            <div class="row flex-lg-nowrap">
+                <div class="col mb-3">
+                    <div class="e-panel card">
+                        <div class="card-body">
+                            <ul class="nav nav-tabs" id="myTab" role="tablist" hidden>
+                                @*暫時隱藏 有能力完成再打開*@
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="posts-tab" data-toggle="tab" href="#posts" role="tab" aria-controls="posts" aria-selected="true">文章</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="packs-tab" data-toggle="tab" href="#packs" role="tab" aria-controls="packs" aria-selected="false">旅程包</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="images-tab" data-toggle="tab" href="#images" role="tab" aria-controls="images" aria-selected="false">圖片</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
+                                    <div class="e-table">
+                                        <div class="table-responsive table-lg mt-3">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th></th>
+                                                        <th class="sortable">日期</th>
+                                                        <th class="max-width">主題</th>
+                                                        <th>地點</th>
+                                                        <th>內容</th>
+                                                        <th>Delete</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var 文章 in Model)
+                                                    {
+                                                        <tr id="@文章.Id">
+                                                            <td class="align-middle text-center">
+                                                            </td>
+                                                            <td class="text-nowrap align-middle">@文章.日期起始</td>
+                                                            <td class="text-nowrap align-middle">@文章.標題</td>
+                                                            <td class="text-nowrap align-middle">@文章.地點</td>
+                                                            <td class="text-center align-middle">
+                                                                <div class="btn-group align-top">
+                                                                    <!--<button class="btn btn-sm btn-outline-secondary badge" type="button"--> @*data-toggle="modal" data-target="#@文章["Id"]"*@  <!--href="/Article?id="">詳細內容</button>-->
+                                                                    <a href="/Article?id=@文章.Id" style="text-decoration:none">詳細內容</a>
+                                                                </div>
+                                                            </td>
+                                                            <td class="text-center align-middle">
+                                                                <div class="btn-group align-top">
+                                                                    <a class="btn btn-sm btn-outline-danger badge" id="add" onclick="del(@文章.Id)"><i class="fa fa-trash"></i></a>
+                                                                    @*@Html.ActionLink("取消收藏", "刪除收藏", "Favorite", new { id = 文章["Id"] }, new { @class = "btn btn-outline-danger", onclick = "return confirm('確定取消收藏文章?')", style = "margin:5px" })*@
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- User Form Modal -->
+            <!--<div class="modal fade" role="dialog" tabindex="-1" id="user-form-modal">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">新增文章</h5>
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="py-1">
+                                <form class="form" novalidate="">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="form-group">
+                                                        <label>Full Name</label>
+                                                        <input class="form-control" type="text" name="name" placeholder="John Smith" value="John Smith">
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="form-group">
+                                                        <label>Username</label>
+                                                        <input class="form-control" type="text" name="username" placeholder="johnny.s" value="johnny.s">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="form-group">
+                                                        <label>Email</label>
+                                                        <input class="form-control" type="text" placeholder="user@example.com">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col mb-3">
+                                                    <div class="form-group">
+                                                        <label>About</label>
+                                                        <textarea class="form-control" rows="5" placeholder="My Bio"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 col-sm-6 mb-3">
+                                            <div class="mb-2"><b>Change Password</b></div>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="form-group">
+                                                        <label>Current Password</label>
+                                                        <input class="form-control" type="password" placeholder="••••••">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="form-group">
+                                                        <label>New Password</label>
+                                                        <input class="form-control" type="password" placeholder="••••••">
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="form-group">
+                                                        <label>Confirm <span class="d-none d-xl-inline">Password</span></label>
+                                                        <input class="form-control" type="password" placeholder="••••••">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-5 offset-sm-1 mb-3">
+                                            <div class="mb-2"><b>Keeping in Touch</b></div>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <label>Email Notifications</label>
+                                                    <div class="custom-controls-stacked px-2">
+                                                        <div class="custom-control custom-checkbox">
+                                                            <input type="checkbox" class="custom-control-input" id="notifications-blog" checked="">
+                                                            <label class="custom-control-label" for="notifications-blog">Blog posts</label>
+                                                        </div>
+                                                        <div class="custom-control custom-checkbox">
+                                                            <input type="checkbox" class="custom-control-input" id="notifications-news" checked="">
+                                                            <label class="custom-control-label" for="notifications-news">Newsletter</label>
+                                                        </div>
+                                                        <div class="custom-control custom-checkbox">
+                                                            <input type="checkbox" class="custom-control-input" id="notifications-offers" checked="">
+                                                            <label class="custom-control-label" for="notifications-offers">Personal Offers</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col d-flex justify-content-end">
+                                            <button class="btn btn-primary" type="submit">Save Changes</button>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+        </div>
+    </div>
+</div>
+
+@section HtmlBodyEnd{
+
+    @Html.Partial("_Script")
+    <script></script>
+}
+

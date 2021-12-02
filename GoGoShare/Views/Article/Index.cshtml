@@ -1,0 +1,88 @@
+﻿@using GoGoShare.Models
+@model Article
+
+@{
+    ViewBag.Title = @Model.文章.標題;
+}
+
+@section HtmlHeadEnd{
+    <link rel="stylesheet" href="~/Content/post.css" />
+    <link rel="stylesheet" href="https://cdn.quilljs.com/1.3.6/quill.snow.css" />
+    <style>
+        .ql-container {
+            font-size: 16px !important;
+            height: auto !important;
+        }
+
+        .ql-snow {
+            border: none !important;
+        }
+    </style>
+}
+
+@{
+    var 作者 = Model.文章.Get作者();
+
+    <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('../../images/@Model.文章.Get圖片路徑()');">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-center">
+                <div class="col-md-9 ftco-animate pb-5 text-center">
+                    @if (作者 is null)
+                    {
+                        <p class="breadcrumbs"><span class="mr-2"><a href="~/Home">Home <i class="fa fa-chevron-right"></i></a></span> <span class="mr-2"><a class="font-italic">已刪除的用戶 <i class="fa fa-chevron-right"></i></a></span></p>
+                    }
+                    else
+                    {
+                        <p class="breadcrumbs"><span class="mr-2"><a href="~/Home">Home <i class="fa fa-chevron-right"></i></a></span> <span class="mr-2"><a href="/Search?user=@作者.Id">@作者.名字 <i class="fa fa-chevron-right"></i></a></span></p>
+                    }
+                    <h1 class="mb-0 bread" id="抬頭">@Model.文章.標題</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ftco-section ftco-no-pt ftco-no-pb">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 ftco-animate py-md-5 mt-md-5">
+                    @Html.Partial("_文章內容", Model.文章)
+                    @Html.Partial("_作者訊息", 作者)
+                    <div class="pt-5 mt-5">
+                        <h3 class="mb-5" style="font-size: 20px; font-weight: bold;">共 @Model.文章.Get評論數() 則評論</h3>
+                        @Html.Partial("_評論列表", Model.文章.Get評級清單())
+                        @Html.Partial("_新增評論", Model.文章.Id)
+                    </div>
+                </div>  @*.col-md-8*@
+                <div class="col-lg-4 sidebar ftco-animate bg-light py-md-5">
+                    @Html.Partial("_搜尋欄")
+                    @Html.Partial("_活動時間", Model.文章)
+                    <div class="sidebar-box ftco-animate">
+                        <h3>@作者.名字 的 Recent Blog</h3>
+                        @Html.Partial("_最近文章", 作者.Get最新三筆文章())
+                    </div>
+                    <div class="sidebar-box ftco-animate">
+                        <h3>@作者.名字 關注的 Hashtag</h3>
+                        @Html.Partial("_TagCloud", 作者)
+                    </div>
+                    @Html.Partial("_分類")
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- .section -->
+}
+
+@section HtmlBodyEnd{
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script>
+        $('#文章內容').html(unescape('@Model.文章.內容'));
+
+        @*@if (ViewBag.旅程包 != null)
+        {
+            ViewBag.旅程包標題 = ViewBag.旅程包["標題"];
+        }
+
+        console.log('@ViewBag.旅程包標題');*@
+    </script>
+}

@@ -1,0 +1,16 @@
+﻿@using GoGoShare.Models
+@model 用戶
+
+<div class="tagcloud">
+    @{
+        var hashtags = Model.GetHashtag清單();
+        foreach (var hashtag in hashtags)
+        {
+            <a href="/Search?hashtag=@hashtag.Id" class="tag-cloud-link">@hashtag.名稱</a>
+        }
+        if (hashtags.Count == 0)
+        {
+            <p>此用戶沒有關注的 Hashtag !</p>
+        }
+    }
+</div>

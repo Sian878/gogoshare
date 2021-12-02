@@ -1,0 +1,34 @@
+﻿<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <div class="container">
+        <a class="navbar-brand" href="/Home"><img src="~/images/gogoshare_logo_nobg-04.png" style="width:130px;"/><span>Short Stay, be friends</span></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="oi oi-menu"></span> Menu
+        </button>
+
+        <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a href="/Home" class="nav-link">主畫面</a></li>
+                <li class="nav-item"><a href="/Search?active=room" class="nav-link">出租房間</a></li>
+                <li class="nav-item"><a href="/Search?active=food" class="nav-link">共享美食</a></li>
+                <li class="nav-item"><a href="/Search?active=trip" class="nav-link">主題旅遊</a></li>
+                <li class="nav-item"><a href="/SignUp/SelectInterest" class="nav-link">興趣</a></li>
+                <li class="nav-item"><a href="/Home#關於我們" class="nav-link">關於我們</a></li>
+                <li class="nav-item"><a href="/SignUp" class="nav-link" id="Login">登入</a></li>
+            </ul>
+            <div class="dropdown" id="UserMenu">
+                <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                </button>
+                @{
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="~/Member">會員中心</a>
+                            <a class="dropdown-item" href="~/List/MyPost">我的旅程</a>
+                            <a class="dropdown-item" href="~/List/Favorite">我的收藏</a>
+                            <a class="dropdown-item" href="~/Member/登出">登出</a>
+                         </div>
+                }
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- END nav -->

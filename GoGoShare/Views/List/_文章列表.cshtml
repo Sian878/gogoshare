@@ -1,0 +1,40 @@
+﻿@using GoGoShare.Models
+@model List<文章>
+
+<table class="table table-bordered" id="posts-table">
+    <thead>
+        <tr>
+            <th class="max-width">標題</th>
+            <th>日期起始</th>
+            <th>日期結束</th>
+            <th>編輯</th>
+            <th>刪除</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var 文章 in Model)
+        {
+            <tr atricle-id="@文章.Id">
+                <td class="text-nowrap align-middle titleTxt"><a href="~/Article?id=@文章.Id#抬頭">@文章.標題</a></td>
+                <td class="text-nowrap align-middle dateTxt">@文章.日期起始</td>
+                <td class="text-nowrap align-middle dateTxt">@文章.日期結束</td>
+                <td class="text-center align-middle">
+                    <div class="btn-group align-top">
+                        <button onclick="window.location.href='/Post?id=@文章.Id#editor'" class="btn btn-sm btn-outline-secondary badge" type="button" data-toggle="modal" data-target="#user-form-modal">Edit</button>
+                    </div>
+                </td>
+                <td class="text-center align-middle">
+                    <div class="btn-group align-top">
+                        <button class="btn btn-sm btn-outline-danger badge" type="button"><i class="fa fa-trash"></i></button>
+                    </div>
+                </td>
+            </tr>
+        }
+        @if (Model.Count == 0)
+        {
+            <tr>
+                <td class="text-nowrap align-middle titleTxt" colspan="5">無相符搜尋結果</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,28 @@
+﻿@using GoGoShare.Models
+@model List<文章>
+
+<div class="col-md-12">
+    <div class="row justify-content-center pb-1">
+        <div class="col-md-7 text-center heading-section ftco-animate">
+            <span class="subheading">Journeys</span>
+            <h3 class="mb-1">我的所有旅程</h3>
+        </div>
+    </div>
+    <div id="carousel" class="carousel-testimony owl-carousel">
+        @foreach (var 文章 in Model)
+        {
+            <div class="item">
+                <div class="card bg-dark text-white">
+                    <img class="card-img" src="../../images/@文章.Get圖片路徑()" alt="Card image" style="height:15rem">
+                    <div class="card-img-overlay">
+                        <h5 class="card-title" style="color: white;">@文章.標題</h5>
+                        <span class="days">@文章.日期起始 至 <br /></span>
+                        <span class="days">@文章.日期結束</span>
+                        <p class="location"><span class="fa fa-map-marker"></span> @文章.地點</p>
+                        <button article-id="@文章.Id" class="btn btn-primary">Go somewhere</button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

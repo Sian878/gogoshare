@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html>
+<html lang="zh-tw">
+
+<head>
+    <title>@ViewBag.Title - Short Stay, be friends</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Arizonia&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="~/Content/animate.css">
+
+    <link rel="stylesheet" href="~/Content/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/Content/owl.theme.default.min.css">
+    <link rel="stylesheet" href="~/Content/magnific-popup.css">
+
+    <link rel="stylesheet" href="~/Content/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="~/Content/search.css">
+    <link rel="stylesheet" href="~/Content/jquery.timepicker.css">
+
+
+    <link rel="stylesheet" href="~/Content/flaticon.css">
+    <link rel="stylesheet" href="~/Content/style.css">
+    <link rel="stylesheet" href="~/Content/popular.css">
+
+    @Html.Partial("_共用風格")
+
+    @RenderSection("HtmlHeadEnd", required: false)
+</head>
+
+<body>
+    @Html.Partial("_Navbar")
+
+    @RenderBody()
+
+    @Html.Partial("_登入了嗎")
+
+    @Html.Partial("_Footer")
+
+    @Html.Partial("_Loader")
+
+    @Html.Partial("_右下角按鈕")
+
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/jquery-migrate-3.0.1.min.js"></script>
+    <script src="~/Scripts/popper.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.easing.1.3.js"></script>
+    <script src="~/Scripts/jquery.waypoints.min.js"></script>
+    <script src="~/Scripts/jquery.stellar.min.js"></script>
+    <script src="~/Scripts/owl.carousel.min.js"></script>
+    <script src="~/Scripts/jquery.magnific-popup.min.js"></script>
+    <script src="~/Scripts/jquery.animateNumber.min.js"></script>
+    <script src="~/Scripts/bootstrap-datepicker.js"></script>
+    <script src="~/Scripts/scrollax.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+    @*<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+        <script src="~/Scripts/google-map.js"></script>*@
+    <script src="~/Scripts/main.js"></script>
+
+    @*文章編輯器 Quill*@
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
+    <script>
+        //載入頁面後是否自動滾動 60vh
+        //應該用 CSS 處理較佳，這裡為方便先用 JS 控制
+        if ('@ViewBag.isScroll' != '' && '@ViewBag.isScroll' == 'true') {
+            var scrollNum = window.innerHeight * 0.6;
+
+            window.addEventListener('resize', updateScrollNum);
+            function updateScrollNum() {
+                scrollNum = window.innerHeight * 0.6;
+            }
+
+            window.addEventListener('scroll', revert60vh);
+            function revert60vh () {
+                if (scrollNum > window.scrollY) window.scrollTo(0, scrollNum);
+            }
+            revert60vh();
+        };
+
+        /*如果NAME 標籤列登入換成NAME*/
+        var Login = '@Session["Name"]';
+        $(function () {
+            $("#dropdownMenuButton").hide();
+            if (Login != "") {
+                $("#Login").hide();
+                $("#dropdownMenuButton").show();
+                $("#dropdownMenuButton").text("@Session["Name"]");
+            }
+        })
+
+        //var login = document.getElementById("Login");
+        //login.addEventListener("click", function () {
+        //    if (login.text == "登入") {
+        //        document.location.href = "/SignUp";
+        //    }
+        //    else {
+        //        document.location.href = "/Member";
+        //    }
+        //});
+    </script>
+
+    @RenderSection("HtmlBodyEnd", required: false)
+
+</body>
+
+</html>

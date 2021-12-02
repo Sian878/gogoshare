@@ -1,0 +1,119 @@
+﻿@model 文章
+
+<section id="editor" class="ftco-section" onload="initialize()" onunload="GUnload()">
+    <div class="container">
+        <form class="row p_row" id="postform" enctype="multipart/form-data">
+            <input type="hidden" name="id" value="@Model.Id" />
+            <div class="postform col col-12 col-md-4 col-lg-3 my-3">
+
+                <div class="postform_L">
+                    <label class="postLabel" for="pTitle"><i class="fas fa-suitcase-rolling"></i>請輸入旅程標題</label>
+                    <input id="pTitle" type="text" name="pTitle" class="pFormInput" style="width: 100%;" placeholder=" 旅遊行程標題" size="22" autocomplete="off" value="@Model.標題" />
+                    <div class="errorMsg1"></div>
+                </div>
+                <div class="postform_L">
+                    <label style="display: inline" class="postLabel" for="pStartDate"><i class="far fa-calendar-check"></i>請選擇開始日期</label>
+                    <input id="pStartDate" type="datetime-local" name="pStartDate" class="pFormDateInput" style="width: 100%;" value="@Convert.ToDateTime(Model.日期起始).ToString("yyyy-MM-ddThh:mm")" /><br />
+                    <div class="errorMsg2"></div>
+                </div>
+                <div class="postform_L">
+                    <label class="postLabel" for="pEndDate"><i class="far fa-calendar-minus"></i>請選擇結束日期</label>
+                    <input id="pEndDate" type="datetime-local" name="pEndDate" class="pFormDateInput" style="width: 100%;" value="@Convert.ToDateTime(Model.日期結束).ToString("yyyy-MM-ddThh:mm")" />
+                    <div class="errorMsg3"></div>
+                </div>
+
+                <div class="postform_L">
+                    <label class="postLabelPeo" for="pplNumber"><i class="fas fa-user-check"></i>接待人數</label>
+                    <input id="pplNumber" type="text" name="ppNumber" class="pFormInput" style="width: 100%;" value="@Model.接待人數" />
+                    <div class="errorMsg5"></div>
+                </div>
+                <div class="postform_L postCbx">
+                    <label class="postLabel"><i class="fas fa-user-check"></i>活動類型</label><hr />
+                    @{
+                        string[] type = @Model.類型.ToString().Split(',');
+
+                        <div class="pCbx"><input id="typeRoom" type="checkbox" name="ptype" class="pFormInputCbx" value="room" @Html.Raw(type.Contains("room") ? "checked=\"checked\"" : "") /> <label class="cbxType" for="typeRoom"> 出租房間</label> <br /></div>
+                        <div class="pCbx"><input id="typeFood" type="checkbox" name="ptype" class="pFormInputCbx" value="food" @Html.Raw(type.Contains("food") ? "checked=\"checked\"" : "") /> <label class="cbxType" for="typeFood"> 共享美食</label><br /></div>
+                        <div class="pCbx"><input id="typeTrip" type="checkbox" name="ptype" class="pFormInputCbx" value="trip" @Html.Raw(type.Contains("trip") ? "checked=\"checked\"" : "") /> <label class="cbxType" for="typeTrip"> 分享旅程</label> <br /></div>
+                    }
+                </div>
+                <div class="postform_L">
+                    <label class="postLabel" for="pPoint"><i class="fas fa-user-check"></i>點數</label>
+                    <select id="pPoint" name="pPoint" class="pFormInput pPoint" style="width: 100%;">
+                        @{
+                            <option value="" disabled>--請選擇點數--</option>
+                            <option name="pPoint" value="0" @Html.Raw((Model.點數 == 0) ? "selected=\"selected\"" : "")>$0</option>
+                            <option name="pPoint" value="500" @Html.Raw((Model.點數 == 500) ? "selected=\"selected\"" : "")>$500</option>
+                            <option name="pPoint" value="1000" @Html.Raw((Model.點數 == 1000) ? "selected=\"selected\"" : "")>$1000</option>
+                            <option name="pPoint" value="1500" @Html.Raw((Model.點數 == 1500) ? "selected=\"selected\"" : "")>$1500</option>
+                            <option name="pPoint" value="2000" @Html.Raw((Model.點數 == 2000) ? "selected=\"selected\"" : "")>$2000</option>
+                            <option name="pPoint" value="2500" @Html.Raw((Model.點數 == 2500) ? "selected=\"selected\"" : "")>$2500</option>
+                            <option name="pPoint" value="3000" @Html.Raw((Model.點數 == 3000) ? "selected=\"selected\"" : "")>$3000</option>
+                            <option name="pPoint" value="3500" @Html.Raw((Model.點數 == 3500) ? "selected=\"selected\"" : "")>$3500</option>
+                            <option name="pPoint" value="4000" @Html.Raw((Model.點數 == 4000) ? "selected=\"selected\"" : "")>$4000</option>
+                            <option name="pPoint" value="4500" @Html.Raw((Model.點數 == 4500) ? "selected=\"selected\"" : "")>$4500</option>
+                            <option name="pPoint" value="5000" @Html.Raw((Model.點數 == 5000) ? "selected=\"selected\"" : "")>$5000</option>
+                        }
+                    </select>
+                    <div class="errorMsg6"></div>
+                </div>
+                <div class="postform_L">
+                    <input id="pDate" type="hidden" name="pDate" class="pFormInput" size="22" vale="" disabled />
+                    <div class="errorMsg4"></div>
+                </div>
+            </div>
+            <div id="form-container" class="col col-12 col-md-8 col-lg-9 ">
+                <div class="postform_R col form-group">
+                    <div class="postIntro">▋ 請上傳封面照片</div>
+                    <div class="preview" id="preview">
+                        <div class="uploadImg"></div>
+                    </div>
+                    <input class="pUpload" type="file" name="pUpload" id="pUpload" accept="image/*">
+                    <div class="form-group">
+                        <label for="about" type="hidden"></label>
+                        <div class="postIntro">▋ 旅程簡介</div>
+                        <input id="pContent" name="pContent" type="hidden" value="@Model.內容">
+                        <div id="editor-container">
+
+                        </div>
+                    </div>
+                    <div class="col-xs-8">
+
+                        <div class="form-group">
+                            <div class="postIntro">▋ 詳細地址</div>
+                            <input id="pac-input" class="form-control controls" name="pAddress" type="text" placeholder=" 請輸入詳細地址" value="@Model.地點">
+                            <div class="pMaps" id="map"></div>
+                        </div>
+
+                        <div id="Hashtag選擇區" class="form-group">
+                            <div class="postIntro">Hashtags</div>
+
+                            @*Hashtags放這邊*@
+
+                        </div>
+
+                    </div>
+                    <div id="submitBtn">
+                        <button id="ViewMyPost" class="btn btn-outline-info" type="button" onclick="window.location.href='/List/MyPost'">查看旅程</button>
+                        <button id="postSubmit" class="btn btn-primary" type="button">分享旅程</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        @*<div class="row mt-5">
+                <div class="col text-center">
+                    <div class="block-27">
+                        <ul>
+                            <li><a href="#">&lt;</a></li>
+                            <li class="active"><span>1</span></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#">5</a></li>
+                            <li><a href="#">&gt;</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>*@
+    </div>
+</section>

@@ -1,0 +1,44 @@
+﻿@using GoGoShare.Models
+@model List<圖片>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>用戶</th>
+            <th class="max-width">圖片路徑</th>
+            <th>刪除</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var 圖片 in Model)
+        {
+            <tr image-id="@圖片.Id">
+                <td class="text-nowrap align-middle titleTxt">@圖片.Id</td>
+                <td class="text-nowrap align-middle titleTxt">
+                    @if (圖片.用戶 is null)
+                    {
+                        <span class="font-italic">已刪除的用戶</span>
+                    }
+                    else
+                    {
+                        <a href="~/Search?user=@圖片.用戶.Id#抬頭">@圖片.用戶.名字</a>
+                    }
+                </td>
+                <td class="text-nowrap align-middle dateTxt">
+                    <a data-toggle="collapse" href="#collapse-@圖片.Id" aria-expanded="false" aria-controls="collapse-@圖片.Id">
+                        @圖片.路徑
+                    </a>
+                    <div class="collapse" id="collapse-@圖片.Id">
+                        <img src="~/images/@圖片.路徑" style="max-width:580px" />
+                    </div>
+                </td>
+                <td class="text-center align-middle">
+                    <div class="btn-group align-top">
+                        <button class="btn btn-sm btn-outline-danger badge" type="button"><i class="fa fa-trash"></i></button>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,51 @@
+﻿@model List<文章>
+
+<section class="ftco-section testimony-section bg-bottom" style="background-image: url(../../images/bg_1.jpg);">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row justify-content-center pb-4">
+            <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
+                <span class="subheading">Journeys</span>
+                <h2 class="mb-4">精選旅程</h2>
+            </div>
+        </div>
+        <div class="row ftco-animate">
+            <div class="col-md-12">
+                <div id="精選旅程" class="carousel-testimony owl-carousel">
+                    @{
+                        int count = 0;
+                        foreach (var 文章 in Model)
+                        {
+                            <div class="item" index="@count" article-id="@文章.Id">
+                                <div class="blog-entry justify-content-end">
+                                    <a href="../Article?id=@文章.Id" class="block-20"
+                                       style="background-image: url('../../images/@文章.Get圖片路徑()');">
+                                    </a>
+                                    <div class="text">
+                                        <div class="d-flex align-items-center mb-4 topp">
+                                            <div class="one">
+                                                <span class="day">@Convert.ToInt32(文章.日期起始.ToString("dd"))</span>
+                                            </div>
+                                            <div class="two">
+                                                <span class="yr">@文章.日期起始.ToString("yyyy")</span>
+                                                <span class="mos">@文章.日期起始.ToString("MMMM")</span>
+                                            </div>
+                                        </div>
+                                        <h3 class="heading">@文章.標題</h3>
+                                        <!-- <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p> -->
+                                        <p class="mb-4" owl-article="@文章.Id"></p>
+                                        <div class="btn-group" role="group" style="width: 100%;">
+                                            <button type="button" class="btn btn-outline-secondary" onclick="window.location.href='/Search'">搜尋其他</button>
+                                            <button type="button" class="btn btn-info" onclick="window.location.href='/Article?id=@文章.Id'">了解更多</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            count++;
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

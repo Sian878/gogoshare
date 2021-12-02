@@ -1,0 +1,43 @@
+﻿body {
+    height: 100%;
+    width: auto;
+    /* min-width: auto;*/
+    height: 100% !important;
+    background-image: url('../../images/bg_5.jpg');
+    background-attachment: fixed !important;
+    background-size: cover;
+}
+
+#mymember {
+    font-size: 30px;
+    text-align: center;
+}
+
+.form-group {
+    font-size: 18px;
+}
+
+.square {
+    width: 100px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,0,0,1.00);
+}
+
+.mylabel {
+    letter-spacing: 1px !important;
+
+}
+
+.col-form-label{
+    padding-left:2rem!important;
+}
+
+.newHashtag{
+    padding-left:1rem;
+}
+
+@media screen and (max-width:720px) {
+    .col-form-label {/*
+        padding:0 auto;*/
+    }
+}

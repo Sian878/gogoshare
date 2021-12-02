@@ -1,0 +1,129 @@
+﻿@using GoGoShare.Models
+@model 用戶
+
+@{
+    Layout = null;
+    string photoName = "初始照片.jpg";
+    if (ViewBag.kk != "")
+    {
+        photoName = ViewBag.kk.ToString();
+    }
+}
+
+<!DOCTYPE html>
+
+<html style="height:100%">
+<head>
+    <link href="~/Content/myInfo.css" rel="stylesheet" />
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body style="font-family:Arial,sans-serif;">
+    <div class="content py-5">
+        <div class="container">
+            <div class="row" >
+                <div class="col-md-8 offset-md-2" >
+                    <span class="anchor" id="formUserEdit"></span>
+                    <!-- form user info -->
+                    <div class="card" style="background-color: rgba(255, 255, 255, 0.8);">
+                        <br>
+                        <img src="~/images/@photoName" style="width:200PX;height:200PX;margin:auto;border:solid;" id="myphoto" class="square"/>
+                        <div class="card-body">
+                            <form class="form" role="form" method="post" action="~/Member/Update" enctype="multipart/form-data">
+                                <input type="hidden" name="Id" value="@Model.Id">
+                                <div class="form-group row">
+                                    <label class="mylabelImgUpload col-lg-3 col-form-label form-control-label">上傳大頭照</label>
+                                    <div class="col-lg-9">
+                                        <input type="file" name="myfile" id="photo">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="mylabel col-lg-3 col-form-label form-control-label">帳號</label>
+                                    <div class="col-lg-7">
+                                        <input class="form-control form-control" type="email" name="Email" value="@Model.帳號" required />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="mylabel col-lg-3 col-form-label form-control-label">密碼</label>
+                                    <div class="col-lg-7">
+                                        <input class="form-control form-control" type="password" name="Password" disabled="disabled" value="@Model.密碼" required />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="mylabel col-lg-3 col-form-label form-control-label">姓名</label>
+                                    <div class="col-lg-7">
+                                        <input class="form-control form-control" type="text" name="Name" value="@Model.名字" required />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="mylabel col-lg-3 col-form-label form-control-label">手機</label>
+                                    <div class="col-lg-7">
+                                        <input class="form-control form-control" type="text" name="Phone" value="@Model.手機" required />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="mylabel col-lg-3 col-form-label form-control-label">註冊日期</label>
+                                    <div class="col-lg-7">
+                                        <input class="form-control form-control" type="text" disabled="disabled" value="@Model.註冊日期">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="mylabel col-lg-3 col-form-label form-control-label">點數</label>
+                                    <div class="col-lg-7">
+                                        <input class="form-control form-control" type="url" disabled="disabled" value="@Model.點數">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="mylabel col-lg-3 col-form-label form-control-label">標籤</label>
+                                    <div class="col-lg-7">
+                                        @{
+                                            foreach (var Hashtag in Model.Hashtag)
+                                            {
+                                                @*<a href="/Search/@Hashtag["名稱"]" class="tag-cloud-link">@Hashtag["名稱"]</a>*@
+                                                <button type="button" class="btn btn-outline-danger">@Hashtag.名稱</button>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                                <a href="/SignUp/SelectInterest" class="newHashtag">新增標籤</a>
+                                <div class="form-group row">
+                                    <label class="col-lg-3 col-form-label form-control-label" ></label>
+                                    <div class="col-lg-9" style="padding-left:120px">
+                                        <a class="btn btn-warning" href="/Home">返回</a>
+                                        <input type="submit" class="btn btn-primary" value="確認修改" onclick="revise()">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- /form user info -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function revise() {
+            alert("資料修改成功");
+        }
+
+        $("#photo").change(function () {
+            //當檔案改變後，做一些事 
+            readURL(this);   // this代表<input id="photo">
+        });
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $("#myphoto").attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+</body>
+</html>

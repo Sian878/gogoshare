@@ -1,0 +1,39 @@
+﻿@using GoGoShare.Models
+@model List<評級> 
+        
+<ul class="comment-list">
+    @{
+        foreach (var 評級 in Model)
+        {
+            var 評分者 = 評級.用戶;
+            <li class="comment">
+                <div class="vcard bio">
+                    <img src="../../images/@評分者.大頭貼" alt="Image placeholder">
+                </div>
+                <div class="comment-body">
+                    <h3>
+                        @評分者.名字 (@if ((int)@評級.分數 < 0)
+                    {
+                        @評級.分數
+                    }
+                    else
+                    {
+                        @Html.Raw("+")@評級.分數;
+                    })
+                    </h3>
+                    <div class="meta">@評分者.帳號</div>
+                    <p>@評級.評論</p>
+                </div>
+            </li>
+        }
+        if (Model.Count == 0)
+        {
+            <li class="comment">
+                <div class="comment-body">
+                    <h3>現在還沒有評論~ 快來搶頭香吧！</h3>
+                </div>
+            </li>
+        }
+    }
+</ul>
+<!-- END comment-list -->

@@ -1,0 +1,157 @@
+﻿@using GoGoShare.Models
+@model SelectInterest
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>@ViewBag.Title - Short Stay, be friends</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Arizonia&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="~/Content/animate.css">
+
+    <link rel="stylesheet" href="~/Content/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/Content/owl.theme.default.min.css">
+    <link rel="stylesheet" href="~/Content/magnific-popup.css">
+
+    <link rel="stylesheet" href="~/Content/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="~/Content/jquery.timepicker.css">
+
+    <link rel="stylesheet" href="~/Content/flaticon.css">
+    <link rel="stylesheet" href="~/Content/style.css">
+
+    @if (ViewBag.MyCSSs != null)
+    {
+        foreach (string css in ViewBag.MyCSSs)
+        {
+            @Html.Raw(css);
+        }
+
+    }
+
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/jquery-migrate-3.0.1.min.js"></script>
+    <script src="~/Scripts/popper.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.easing.1.3.js"></script>
+    <script src="~/Scripts/jquery.waypoints.min.js"></script>
+    <script src="~/Scripts/jquery.stellar.min.js"></script>
+    <script src="~/Scripts/owl.carousel.min.js"></script>
+    <script src="~/Scripts/jquery.magnific-popup.min.js"></script>
+    <script src="~/Scripts/jquery.animateNumber.min.js"></script>
+    <script src="~/Scripts/bootstrap-datepicker.js"></script>
+    <script src="~/Scripts/scrollax.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+    <script src="~/Scripts/google-map.js"></script>
+    <script src="~/Scripts/main.js"></script>
+    <script>
+        $(document).ready(function () {
+            @foreach(Hashtag t in @Model.已選Hashtags)
+            {
+                @Html.Raw($"$('#{t.Id}').css('background-color', 'red');");
+            }
+        });
+
+        function test(hashtagid) {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("AddUserHashtag","SignUp")',
+                data: { id: hashtagid }
+            });
+            $("#" + hashtagid).css("background-color", "red");
+        }
+
+        function del(id) {
+           $.ajax({
+                type: 'POST',
+                url: '@Url.Action("刪除用戶標籤", "SignUp")',
+                data: { id: id }
+            });
+            $("#" + id).css("background-color", "");
+        }
+    </script>
+</head>
+
+<body style="background-image: url('../../images/bg_5.jpg');">
+    @using (Html.BeginForm())
+    {
+        <section class="ftco-intro ftco-section ftco-no-pt">
+            <div class="container mt-5">
+                <div class="row justify-content-center">
+                    <div class="col-md-12 text-center">
+                        <div style="background-color: rgba(255, 255, 255, 0.8);">
+                            <!--background-color:rgba(255, 255, 255, 0.5);-->
+                            <!--background-color:aliceblue-->
+                            <div class="overlay"></div>
+
+                            <br><h2 style="color:black">請選擇興趣</h2>
+                            <!--展示出hashtag名稱-->
+                            @{
+                                int count = 1;
+                                foreach (Hashtag t in @Model.全部Hashtags)
+                                {
+
+                                    if (t.類別 == "愛好")
+                                    {
+                                        @*@Html.ActionLink((string)t["名稱"], "AddUserHashtag", "SignUp", new { id = t.Id }, new { @class = "btn btn-outline-danger", onclick = "return confirm('是否新增標籤?')", style = "margin:5px" })*@
+                                        if (count % 10 == 0)
+                                        {
+                                            <a onclick="del('@t.Id')" class="btn btn-dark" style="margin:3px -3px 3px 3px">x</a>
+                                            <a onclick="test('@t.Id')" class="btn btn-dark" id="@t.Id" style="margin:3px 3px 3px -7px">@t.名稱</a><br>
+                                        }
+                                        else
+                                        {
+                                            <a onclick="del('@t.Id')" class="btn btn-dark" style="margin:3px -3px 3px 3px">x</a>
+                                            <a onclick="test('@t.Id')" class="btn btn-dark" id="@t.Id" style="margin:3px 3px 3px -7px">@t.名稱</a>
+                                        }
+                                        count++;
+                                    }
+                                }
+                            }
+
+                            <hr />
+
+                            <h2 style="color:black">請選擇地區</h2>
+
+                            @{
+                                int count1 = 1;
+                                foreach (Hashtag t in Model.全部Hashtags)
+                                {
+                                    if (t.類別 == "地區")
+                                    {
+                                        if (count1 % 10 == 0)
+                                        {
+                                            <a onclick="del('@t.Id')" class="btn btn-dark" style="margin:3px -3px 3px 3px">x</a>
+                                            <a onclick="test('@t.Id')" class="btn btn-dark" id="@t.Id" style="margin:3px 3px 3px -7px">@t.名稱</a><br>
+                                        }
+                                        else
+                                        {
+                                            <a onclick="del('@t.Id')" class="btn btn-dark" style="margin:3px -3px 3px 3px">x</a>
+                                            <a onclick="test('@t.Id')" class="btn btn-dark" id="@t.Id" style="margin:3px 3px 3px -7px">@t.名稱</a>
+                                        }
+                                        count1++;
+                                    }
+                                }
+                            }
+                            <hr>
+                            <p class="mb-2" style="width: 100%;">
+                                <a class="btn btn-outline-danger" href="~/Member/Index/@Session["ID"]">完成</a>
+                            </p>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+</body>
+</html>

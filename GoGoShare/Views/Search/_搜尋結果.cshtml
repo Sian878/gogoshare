@@ -1,0 +1,60 @@
+﻿@using GoGoShare.Models
+@model List<文章>
+
+
+<div class="row">
+    @foreach (var 文章 in Model)
+    {
+        <div class="col-md-4 ftco-animate">
+
+            <div class="project-wrap">
+
+                <a href="/Article?id=@文章.Id" class="img" style="background-image:
+                        url(../../images/@文章.Get圖片路徑());">
+                    <span class="price">@文章.點數 P</span>
+                </a>
+                <div class="text p-4">
+                    <span class="days">@文章.日期起始 至 <br /></span>
+                    <span class="days">@文章.日期結束</span>
+                    <h3><a href="/Article?id=@文章.Id">@文章.標題</a></h3>
+                    <p class="location"><span class="fa fa-map-marker"></span> @文章.地點</p>
+                    <div class="tagcloud">
+                        @{
+                            foreach (var Hashtag in 文章.GetHashtag清單())
+                            {
+                                <a href="/Search/hashtag=@Hashtag.Id" class="tag-cloud-link">@Hashtag.名稱</a>
+                            }
+                        }
+                    </div>
+                    <ul>
+                        <li>接待人數 @文章.接待人數</li>
+                        <li><span class="flaticon-tour-guide"></span>@文章.Get作者().名字</li>
+                    </ul>
+                    <div class="collection"><div class="heart" article-id="@文章.Id"></div></div>	@*點讚愛心*@
+                </div>
+            </div>
+        </div>
+    }
+    @if (Model.Count == 0)
+    {
+        <div class="col-md-4 ftco-animate">
+            <h3>抱歉，沒有相符的結果<br>要不換個關鍵字試試？</h3>
+        </div>
+    }
+</div>
+
+@*<div class="row mt-5">
+    <div class="col text-center">
+        <div class="block-27">
+            <ul>
+                <li><a href="#">&lt;</a></li>
+                <li class="active"><span>1</span></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">&gt;</a></li>
+            </ul>
+        </div>
+    </div>
+</div>*@

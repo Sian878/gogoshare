@@ -1,0 +1,80 @@
+﻿
+<script>
+        $(document).ready(function () {
+            $('.fa-trash').parents('button').click(function (e) {
+                var row = $(e.target).closest('tr');
+
+                if (row.attr('atricle-id')) {
+                    var id = row.attr('atricle-id');
+                    刪除('文章', id, '/List/DeletePost', row);
+                }
+
+                if (row.attr('user-id')) {
+                    var id = row.attr('user-id');
+                    刪除('用戶', id, '/List/DeleteUser', row);
+                }
+
+                if (row.attr('image-id')) {
+                    var id = row.attr('image-id');
+                    刪除('圖片', id, '/List/DeleteImage', row);
+                }
+            });
+        });
+
+        function 刪除(表格, id, action, row) {
+            Swal.fire({
+                title: `確定要刪除${表格}嗎?`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: `刪除${表格}`,
+                cancelButtonText: '再等一下',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: 'Post',
+                        url: action,
+                        data: { id },
+                        success: function (e) {
+                            console.log(e);
+                            if (e) {
+                                Swal.fire(`${表格}刪除失敗`);
+                            }
+                            else {
+                                row.remove();
+                                Swal.fire(`${表格}刪除成功!`);
+                            }
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            swal("Error!", "It was succesfully deleted!", "success");
+                        }
+                    });
+                }
+            })
+        }
+
+        function del(id) {
+        /*swal.fire('收藏文章', '刪除成功', 'success');*/
+        Swal.fire({
+            title: `確定刪除收藏文章?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: `刪除收藏`,
+            cancelButtonText: '再等一下',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("刪除收藏", "List")',
+                    data: { id: id }
+                })
+                window.location.reload();
+            }
+        });
+    }
+
+        $('.collapse').collapse('show');
+</script>

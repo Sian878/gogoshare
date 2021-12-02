@@ -1,0 +1,105 @@
+﻿@using GoGoShare.Models
+@model 用戶
+
+@{
+    ViewBag.Title = "新增旅程包";
+    ViewBag.isScroll = "true";
+}
+
+@section HtmlHeadEnd{
+    <style>
+        .img-owl {
+            height: 150px !important;
+            width: auto !important;
+        }
+    </style>
+}
+
+@Html.Partial("旅程包抬頭")
+
+<div class="container">
+    @Html.Partial("我的所有旅程", Model.Get創作文章清單())
+
+    <div class="row my-5">
+        @Html.Partial("我的旅程包")
+        @Html.Partial("旅程包簡介")
+    </div>
+</div>
+
+
+@section HtmlBodyEnd{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //$(".owl-carousel").draggable({
+            //    helper: 'clone',
+            //    opacity: 0.5
+            //});
+
+            $(".owl-carousel").owlCarousel({
+                loop: true, // 循環播放
+                margin: 10, // 外距 10px
+                nav: true, // 顯示點點
+                responsive: {
+                    0: {
+                        items: 1 // 螢幕大小為 0~600 顯示 1 個項目
+                    },
+                    600: {
+                        items: 3 // 螢幕大小為 600~1000 顯示 3 個項目
+                    },
+                    1000: {
+                        items: 5 // 螢幕大小為 1000 以上 顯示 5 個項目
+                    }
+                }
+            });
+
+            $(".owl-carousel").owlCarousel({
+                items: 1,
+                loop: true,
+                navigation: true,
+                singleItem: true
+            })
+
+            $("button[article-id]").click(function (e) {
+                e.preventDefault();
+
+                var 目標卡片 = $(e.target).closest('.item');
+
+                var 新ROW = $.parseHTML(`
+                    <tr article-id="${$(e.target).attr('article-id')}">
+                        <td class="text-nowrap align-middle">${目標卡片.find('h5').text()}</td>
+                        <td class="text-center align-middle">
+                            <div class="btn-group align-top">
+                                <button class="btn btn-sm btn-outline-secondary badge" type="button"><i class="fa fa-trash"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                `);
+
+                $(新ROW).find('button').click(function (e) {
+                    $(e.target).closest('tr').remove();
+
+                    packPostsOnchange();
+                })
+
+                $('#我的旅程包').append(新ROW);
+
+                packPostsOnchange();
+            });
+
+            function packPostsOnchange() {
+                var 旅程包文章s = $('#我的旅程包').find('tr[article-id]');
+                var 隱形框 = $('input[name="packPosts"]');
+                var arr = [];
+
+                for (var x of 旅程包文章s) {
+                    arr.push($(x).attr('article-id'));
+                }
+
+                console.log(arr);
+                隱形框.val(arr.join(','));
+            }
+
+        })
+
+    </script>
+}

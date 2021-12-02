@@ -1,0 +1,17 @@
+﻿<div class="col-sm-6">
+    <h5>旅程包簡介</h5>
+    <form action="/Pack/New" method="POST">
+        @*<img src="../../images/person_1.jpg" alt="Image placeholder" class="img-fluid uploadImg">
+        <div class="uploadImg"></div>
+        <br />*@
+        <div class="postform_L">
+            <label class="postLabel" for="pTitle"><i class="fas fa-suitcase-rolling"></i>請輸入旅程標題</label>
+            <input id="pTitle" type="text" name="pTitle" class="pFormInput" placeholder=" 旅遊行程標題" size="22" autocomplete="off" />
+            <div class="errorMsg1"></div>
+        </div>
+        <textarea rows="5" class="form-control" name="pContent" placeholder="旅程簡介"></textarea>
+
+        <input type="submit" class="btn btn-primary btn-md" style="float: right;" value="發表旅程" />
+        <input name="packPosts" />
+    </form>
+</div>

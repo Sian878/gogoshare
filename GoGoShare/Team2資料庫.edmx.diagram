@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="506fcdc490a544be8fd8b609f88052a5" Name="Diagram1">
+        <EntityTypeShape EntityType="team2Model.Hashtag" Width="1.5" PointX="0.75" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="team2Model.文章" Width="1.5" PointX="3" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="team2Model.用戶" Width="1.5" PointX="5.25" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="team2Model.旅程包" Width="1.5" PointX="7.5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="team2Model.旅程包_link" Width="1.5" PointX="8.25" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="team2Model.提問" Width="1.5" PointX="7.5" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="team2Model.評級" Width="1.5" PointX="7.5" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="team2Model.圖片" Width="1.5" PointX="7.5" PointY="13.25" IsExpanded="true" />
+        <AssociationConnector Association="team2Model.FK_旅程包_link_文章" ManuallyRouted="false" />
+        <AssociationConnector Association="team2Model.FK_評級_文章" ManuallyRouted="false" />
+        <AssociationConnector Association="team2Model.FK_旅程包_用戶" ManuallyRouted="false" />
+        <AssociationConnector Association="team2Model.FK_提問_用戶" ManuallyRouted="false" />
+        <AssociationConnector Association="team2Model.FK_評級_用戶" ManuallyRouted="false" />
+        <AssociationConnector Association="team2Model.FK_圖片_圖片" ManuallyRouted="false" />
+        <AssociationConnector Association="team2Model.FK_旅程包_link_旅程包" ManuallyRouted="false" />
+        <AssociationConnector Association="team2Model.文章Hashtag" ManuallyRouted="false" />
+        <AssociationConnector Association="team2Model.用戶Favorite" ManuallyRouted="false" />
+        <AssociationConnector Association="team2Model.用戶Hashtag" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,733 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="team2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Hashtag">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="名稱" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="類別" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="文章">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="標題" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="作者用戶_FK" Type="int" />
+          <Property Name="內容" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="日期起始" Type="datetime" Nullable="false" />
+          <Property Name="日期結束" Type="datetime" Nullable="false" />
+          <Property Name="圖片_FK" Type="int" />
+          <Property Name="地點" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="接待人數" Type="int" Nullable="false" />
+          <Property Name="類型" Type="nvarchar" MaxLength="50" />
+          <Property Name="點數" Type="int" Nullable="false" />
+          <Property Name="文章註冊時間" Type="smalldatetime" />
+        </EntityType>
+        <EntityType Name="文章Hashtag">
+          <Key>
+            <PropertyRef Name="文章_FK" />
+            <PropertyRef Name="Hashtag_FK" />
+          </Key>
+          <Property Name="文章_FK" Type="int" Nullable="false" />
+          <Property Name="Hashtag_FK" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="用戶">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="帳號" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="密碼" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="名字" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="手機" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="註冊日期" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="大頭貼" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="點數" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="用戶Favorite">
+          <Key>
+            <PropertyRef Name="收藏文章_FK" />
+            <PropertyRef Name="用戶_FK" />
+          </Key>
+          <Property Name="收藏文章_FK" Type="int" Nullable="false" />
+          <Property Name="用戶_FK" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="用戶Hashtag">
+          <Key>
+            <PropertyRef Name="用戶_FK" />
+            <PropertyRef Name="Hashtag_FK" />
+          </Key>
+          <Property Name="用戶_FK" Type="int" Nullable="false" />
+          <Property Name="Hashtag_FK" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="旅程包">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="標題" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="描述" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="作者用戶_FK" Type="int" />
+        </EntityType>
+        <EntityType Name="旅程包_link">
+          <Key>
+            <PropertyRef Name="旅程包_FK" />
+            <PropertyRef Name="索引" />
+          </Key>
+          <Property Name="旅程包_FK" Type="int" Nullable="false" />
+          <Property Name="文章_FK" Type="int" Nullable="false" />
+          <Property Name="索引" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="提問">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="問題" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="回答" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="提問用戶_FK" Type="int" />
+        </EntityType>
+        <EntityType Name="評級">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="分數" Type="int" Nullable="false" />
+          <Property Name="評分用戶_FK" Type="int" />
+          <Property Name="文章_FK" Type="int" />
+          <Property Name="評論" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="圖片">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="上傳用戶_FK" Type="int" />
+          <Property Name="路徑" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_文章Hashtag_Hashtag">
+          <End Role="Hashtag" Type="Self.Hashtag" Multiplicity="1" />
+          <End Role="文章Hashtag" Type="Self.文章Hashtag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hashtag">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="文章Hashtag">
+              <PropertyRef Name="Hashtag_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_文章Hashtag_文章">
+          <End Role="文章" Type="Self.文章" Multiplicity="1" />
+          <End Role="文章Hashtag" Type="Self.文章Hashtag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="文章">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="文章Hashtag">
+              <PropertyRef Name="文章_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_用戶Favorite_文章">
+          <End Role="文章" Type="Self.文章" Multiplicity="1" />
+          <End Role="用戶Favorite" Type="Self.用戶Favorite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="文章">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="用戶Favorite">
+              <PropertyRef Name="收藏文章_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_用戶Favorite_用戶">
+          <End Role="用戶" Type="Self.用戶" Multiplicity="1" />
+          <End Role="用戶Favorite" Type="Self.用戶Favorite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="用戶">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="用戶Favorite">
+              <PropertyRef Name="用戶_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_用戶Hashtag_Hashtag">
+          <End Role="Hashtag" Type="Self.Hashtag" Multiplicity="1" />
+          <End Role="用戶Hashtag" Type="Self.用戶Hashtag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hashtag">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="用戶Hashtag">
+              <PropertyRef Name="Hashtag_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_用戶Hashtag_用戶">
+          <End Role="用戶" Type="Self.用戶" Multiplicity="1" />
+          <End Role="用戶Hashtag" Type="Self.用戶Hashtag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="用戶">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="用戶Hashtag">
+              <PropertyRef Name="用戶_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_旅程包_link_文章">
+          <End Role="文章" Type="Self.文章" Multiplicity="1" />
+          <End Role="旅程包_link" Type="Self.旅程包_link" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="文章">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="旅程包_link">
+              <PropertyRef Name="文章_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_旅程包_link_旅程包">
+          <End Role="旅程包" Type="Self.旅程包" Multiplicity="1" />
+          <End Role="旅程包_link" Type="Self.旅程包_link" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="旅程包">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="旅程包_link">
+              <PropertyRef Name="旅程包_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_旅程包_用戶">
+          <End Role="用戶" Type="Self.用戶" Multiplicity="0..1" />
+          <End Role="旅程包" Type="Self.旅程包" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="用戶">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="旅程包">
+              <PropertyRef Name="作者用戶_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_提問_用戶">
+          <End Role="用戶" Type="Self.用戶" Multiplicity="0..1" />
+          <End Role="提問" Type="Self.提問" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="用戶">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="提問">
+              <PropertyRef Name="提問用戶_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_評級_文章">
+          <End Role="文章" Type="Self.文章" Multiplicity="0..1" />
+          <End Role="評級" Type="Self.評級" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="文章">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="評級">
+              <PropertyRef Name="文章_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_評級_用戶">
+          <End Role="用戶" Type="Self.用戶" Multiplicity="0..1" />
+          <End Role="評級" Type="Self.評級" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="用戶">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="評級">
+              <PropertyRef Name="評分用戶_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_圖片_圖片">
+          <End Role="用戶" Type="Self.用戶" Multiplicity="0..1" />
+          <End Role="圖片" Type="Self.圖片" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="用戶">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="圖片">
+              <PropertyRef Name="上傳用戶_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="team2ModelStoreContainer">
+          <EntitySet Name="Hashtag" EntityType="Self.Hashtag" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="文章" EntityType="Self.文章" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="文章Hashtag" EntityType="Self.文章Hashtag" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="用戶" EntityType="Self.用戶" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="用戶Favorite" EntityType="Self.用戶Favorite" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="用戶Hashtag" EntityType="Self.用戶Hashtag" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="旅程包" EntityType="Self.旅程包" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="旅程包_link" EntityType="Self.旅程包_link" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="提問" EntityType="Self.提問" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="評級" EntityType="Self.評級" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="圖片" EntityType="Self.圖片" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_文章Hashtag_Hashtag" Association="Self.FK_文章Hashtag_Hashtag">
+            <End Role="Hashtag" EntitySet="Hashtag" />
+            <End Role="文章Hashtag" EntitySet="文章Hashtag" />
+          </AssociationSet>
+          <AssociationSet Name="FK_文章Hashtag_文章" Association="Self.FK_文章Hashtag_文章">
+            <End Role="文章" EntitySet="文章" />
+            <End Role="文章Hashtag" EntitySet="文章Hashtag" />
+          </AssociationSet>
+          <AssociationSet Name="FK_用戶Favorite_文章" Association="Self.FK_用戶Favorite_文章">
+            <End Role="文章" EntitySet="文章" />
+            <End Role="用戶Favorite" EntitySet="用戶Favorite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_用戶Favorite_用戶" Association="Self.FK_用戶Favorite_用戶">
+            <End Role="用戶" EntitySet="用戶" />
+            <End Role="用戶Favorite" EntitySet="用戶Favorite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_用戶Hashtag_Hashtag" Association="Self.FK_用戶Hashtag_Hashtag">
+            <End Role="Hashtag" EntitySet="Hashtag" />
+            <End Role="用戶Hashtag" EntitySet="用戶Hashtag" />
+          </AssociationSet>
+          <AssociationSet Name="FK_用戶Hashtag_用戶" Association="Self.FK_用戶Hashtag_用戶">
+            <End Role="用戶" EntitySet="用戶" />
+            <End Role="用戶Hashtag" EntitySet="用戶Hashtag" />
+          </AssociationSet>
+          <AssociationSet Name="FK_旅程包_link_文章" Association="Self.FK_旅程包_link_文章">
+            <End Role="文章" EntitySet="文章" />
+            <End Role="旅程包_link" EntitySet="旅程包_link" />
+          </AssociationSet>
+          <AssociationSet Name="FK_旅程包_link_旅程包" Association="Self.FK_旅程包_link_旅程包">
+            <End Role="旅程包" EntitySet="旅程包" />
+            <End Role="旅程包_link" EntitySet="旅程包_link" />
+          </AssociationSet>
+          <AssociationSet Name="FK_旅程包_用戶" Association="Self.FK_旅程包_用戶">
+            <End Role="用戶" EntitySet="用戶" />
+            <End Role="旅程包" EntitySet="旅程包" />
+          </AssociationSet>
+          <AssociationSet Name="FK_提問_用戶" Association="Self.FK_提問_用戶">
+            <End Role="用戶" EntitySet="用戶" />
+            <End Role="提問" EntitySet="提問" />
+          </AssociationSet>
+          <AssociationSet Name="FK_評級_文章" Association="Self.FK_評級_文章">
+            <End Role="文章" EntitySet="文章" />
+            <End Role="評級" EntitySet="評級" />
+          </AssociationSet>
+          <AssociationSet Name="FK_評級_用戶" Association="Self.FK_評級_用戶">
+            <End Role="用戶" EntitySet="用戶" />
+            <End Role="評級" EntitySet="評級" />
+          </AssociationSet>
+          <AssociationSet Name="FK_圖片_圖片" Association="Self.FK_圖片_圖片">
+            <End Role="用戶" EntitySet="用戶" />
+            <End Role="圖片" EntitySet="圖片" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="team2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Hashtag">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="名稱" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="類別" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="文章" Relationship="Self.文章Hashtag" FromRole="Hashtag" ToRole="文章" />
+          <NavigationProperty Name="用戶" Relationship="Self.用戶Hashtag" FromRole="Hashtag" ToRole="用戶" />
+        </EntityType>
+        <EntityType Name="文章">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="標題" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="作者用戶_FK" Type="Int32" />
+          <Property Name="內容" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="日期起始" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="日期結束" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="圖片_FK" Type="Int32" />
+          <Property Name="地點" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="接待人數" Type="Int32" Nullable="false" />
+          <Property Name="類型" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="點數" Type="Int32" Nullable="false" />
+          <Property Name="文章註冊時間" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="旅程包_link" Relationship="Self.FK_旅程包_link_文章" FromRole="文章" ToRole="旅程包_link" />
+          <NavigationProperty Name="評級" Relationship="Self.FK_評級_文章" FromRole="文章" ToRole="評級" />
+          <NavigationProperty Name="Hashtag" Relationship="Self.文章Hashtag" FromRole="文章" ToRole="Hashtag" />
+          <NavigationProperty Name="用戶" Relationship="Self.用戶Favorite" FromRole="文章" ToRole="用戶" />
+        </EntityType>
+        <EntityType Name="用戶">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="帳號" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="密碼" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="名字" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="手機" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="註冊日期" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="大頭貼" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="點數" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="旅程包" Relationship="Self.FK_旅程包_用戶" FromRole="用戶" ToRole="旅程包" />
+          <NavigationProperty Name="提問" Relationship="Self.FK_提問_用戶" FromRole="用戶" ToRole="提問" />
+          <NavigationProperty Name="評級" Relationship="Self.FK_評級_用戶" FromRole="用戶" ToRole="評級" />
+          <NavigationProperty Name="圖片" Relationship="Self.FK_圖片_圖片" FromRole="用戶" ToRole="圖片" />
+          <NavigationProperty Name="文章" Relationship="Self.用戶Favorite" FromRole="用戶" ToRole="文章" />
+          <NavigationProperty Name="Hashtag" Relationship="Self.用戶Hashtag" FromRole="用戶" ToRole="Hashtag" />
+        </EntityType>
+        <EntityType Name="旅程包">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="標題" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="描述" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="作者用戶_FK" Type="Int32" />
+          <NavigationProperty Name="用戶" Relationship="Self.FK_旅程包_用戶" FromRole="旅程包" ToRole="用戶" />
+          <NavigationProperty Name="旅程包_link" Relationship="Self.FK_旅程包_link_旅程包" FromRole="旅程包" ToRole="旅程包_link" />
+        </EntityType>
+        <EntityType Name="旅程包_link">
+          <Key>
+            <PropertyRef Name="旅程包_FK" />
+            <PropertyRef Name="索引" />
+          </Key>
+          <Property Name="旅程包_FK" Type="Int32" Nullable="false" />
+          <Property Name="文章_FK" Type="Int32" Nullable="false" />
+          <Property Name="索引" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="文章" Relationship="Self.FK_旅程包_link_文章" FromRole="旅程包_link" ToRole="文章" />
+          <NavigationProperty Name="旅程包" Relationship="Self.FK_旅程包_link_旅程包" FromRole="旅程包_link" ToRole="旅程包" />
+        </EntityType>
+        <EntityType Name="提問">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="問題" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="回答" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="提問用戶_FK" Type="Int32" />
+          <NavigationProperty Name="用戶" Relationship="Self.FK_提問_用戶" FromRole="提問" ToRole="用戶" />
+        </EntityType>
+        <EntityType Name="評級">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="分數" Type="Int32" Nullable="false" />
+          <Property Name="評分用戶_FK" Type="Int32" />
+          <Property Name="文章_FK" Type="Int32" />
+          <Property Name="評論" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="文章" Relationship="Self.FK_評級_文章" FromRole="評級" ToRole="文章" />
+          <NavigationProperty Name="用戶" Relationship="Self.FK_評級_用戶" FromRole="評級" ToRole="用戶" />
+        </EntityType>
+        <EntityType Name="圖片">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="上傳用戶_FK" Type="Int32" />
+          <Property Name="路徑" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="用戶" Relationship="Self.FK_圖片_圖片" FromRole="圖片" ToRole="用戶" />
+        </EntityType>
+        <Association Name="FK_旅程包_link_文章">
+          <End Role="文章" Type="Self.文章" Multiplicity="1" />
+          <End Role="旅程包_link" Type="Self.旅程包_link" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="文章">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="旅程包_link">
+              <PropertyRef Name="文章_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_評級_文章">
+          <End Role="文章" Type="Self.文章" Multiplicity="0..1" />
+          <End Role="評級" Type="Self.評級" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="文章">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="評級">
+              <PropertyRef Name="文章_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_旅程包_用戶">
+          <End Role="用戶" Type="Self.用戶" Multiplicity="0..1" />
+          <End Role="旅程包" Type="Self.旅程包" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="用戶">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="旅程包">
+              <PropertyRef Name="作者用戶_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_提問_用戶">
+          <End Role="用戶" Type="Self.用戶" Multiplicity="0..1" />
+          <End Role="提問" Type="Self.提問" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="用戶">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="提問">
+              <PropertyRef Name="提問用戶_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_評級_用戶">
+          <End Role="用戶" Type="Self.用戶" Multiplicity="0..1" />
+          <End Role="評級" Type="Self.評級" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="用戶">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="評級">
+              <PropertyRef Name="評分用戶_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_圖片_圖片">
+          <End Role="用戶" Type="Self.用戶" Multiplicity="0..1" />
+          <End Role="圖片" Type="Self.圖片" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="用戶">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="圖片">
+              <PropertyRef Name="上傳用戶_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_旅程包_link_旅程包">
+          <End Role="旅程包" Type="Self.旅程包" Multiplicity="1" />
+          <End Role="旅程包_link" Type="Self.旅程包_link" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="旅程包">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="旅程包_link">
+              <PropertyRef Name="旅程包_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="文章Hashtag">
+          <End Role="Hashtag" Type="Self.Hashtag" Multiplicity="*" />
+          <End Role="文章" Type="Self.文章" Multiplicity="*" />
+        </Association>
+        <Association Name="用戶Favorite">
+          <End Role="文章" Type="Self.文章" Multiplicity="*" />
+          <End Role="用戶" Type="Self.用戶" Multiplicity="*" />
+        </Association>
+        <Association Name="用戶Hashtag">
+          <End Role="Hashtag" Type="Self.Hashtag" Multiplicity="*" />
+          <End Role="用戶" Type="Self.用戶" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="SQL任務" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Hashtag" EntityType="Self.Hashtag" />
+          <EntitySet Name="文章" EntityType="Self.文章" />
+          <EntitySet Name="用戶" EntityType="Self.用戶" />
+          <EntitySet Name="旅程包" EntityType="Self.旅程包" />
+          <EntitySet Name="旅程包_link" EntityType="Self.旅程包_link" />
+          <EntitySet Name="提問" EntityType="Self.提問" />
+          <EntitySet Name="評級" EntityType="Self.評級" />
+          <EntitySet Name="圖片" EntityType="Self.圖片" />
+          <AssociationSet Name="FK_旅程包_link_文章" Association="Self.FK_旅程包_link_文章">
+            <End Role="文章" EntitySet="文章" />
+            <End Role="旅程包_link" EntitySet="旅程包_link" />
+          </AssociationSet>
+          <AssociationSet Name="FK_評級_文章" Association="Self.FK_評級_文章">
+            <End Role="文章" EntitySet="文章" />
+            <End Role="評級" EntitySet="評級" />
+          </AssociationSet>
+          <AssociationSet Name="FK_旅程包_用戶" Association="Self.FK_旅程包_用戶">
+            <End Role="用戶" EntitySet="用戶" />
+            <End Role="旅程包" EntitySet="旅程包" />
+          </AssociationSet>
+          <AssociationSet Name="FK_提問_用戶" Association="Self.FK_提問_用戶">
+            <End Role="用戶" EntitySet="用戶" />
+            <End Role="提問" EntitySet="提問" />
+          </AssociationSet>
+          <AssociationSet Name="FK_評級_用戶" Association="Self.FK_評級_用戶">
+            <End Role="用戶" EntitySet="用戶" />
+            <End Role="評級" EntitySet="評級" />
+          </AssociationSet>
+          <AssociationSet Name="FK_圖片_圖片" Association="Self.FK_圖片_圖片">
+            <End Role="用戶" EntitySet="用戶" />
+            <End Role="圖片" EntitySet="圖片" />
+          </AssociationSet>
+          <AssociationSet Name="FK_旅程包_link_旅程包" Association="Self.FK_旅程包_link_旅程包">
+            <End Role="旅程包" EntitySet="旅程包" />
+            <End Role="旅程包_link" EntitySet="旅程包_link" />
+          </AssociationSet>
+          <AssociationSet Name="文章Hashtag" Association="Self.文章Hashtag">
+            <End Role="Hashtag" EntitySet="Hashtag" />
+            <End Role="文章" EntitySet="文章" />
+          </AssociationSet>
+          <AssociationSet Name="用戶Favorite" Association="Self.用戶Favorite">
+            <End Role="文章" EntitySet="文章" />
+            <End Role="用戶" EntitySet="用戶" />
+          </AssociationSet>
+          <AssociationSet Name="用戶Hashtag" Association="Self.用戶Hashtag">
+            <End Role="Hashtag" EntitySet="Hashtag" />
+            <End Role="用戶" EntitySet="用戶" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="team2ModelStoreContainer" CdmEntityContainer="SQL任務">
+          <EntitySetMapping Name="Hashtag">
+            <EntityTypeMapping TypeName="team2Model.Hashtag">
+              <MappingFragment StoreEntitySet="Hashtag">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="名稱" ColumnName="名稱" />
+                <ScalarProperty Name="類別" ColumnName="類別" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="文章">
+            <EntityTypeMapping TypeName="team2Model.文章">
+              <MappingFragment StoreEntitySet="文章">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="標題" ColumnName="標題" />
+                <ScalarProperty Name="作者用戶_FK" ColumnName="作者用戶_FK" />
+                <ScalarProperty Name="內容" ColumnName="內容" />
+                <ScalarProperty Name="日期起始" ColumnName="日期起始" />
+                <ScalarProperty Name="日期結束" ColumnName="日期結束" />
+                <ScalarProperty Name="圖片_FK" ColumnName="圖片_FK" />
+                <ScalarProperty Name="地點" ColumnName="地點" />
+                <ScalarProperty Name="接待人數" ColumnName="接待人數" />
+                <ScalarProperty Name="類型" ColumnName="類型" />
+                <ScalarProperty Name="點數" ColumnName="點數" />
+                <ScalarProperty Name="文章註冊時間" ColumnName="文章註冊時間" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="用戶">
+            <EntityTypeMapping TypeName="team2Model.用戶">
+              <MappingFragment StoreEntitySet="用戶">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="帳號" ColumnName="帳號" />
+                <ScalarProperty Name="密碼" ColumnName="密碼" />
+                <ScalarProperty Name="名字" ColumnName="名字" />
+                <ScalarProperty Name="手機" ColumnName="手機" />
+                <ScalarProperty Name="註冊日期" ColumnName="註冊日期" />
+                <ScalarProperty Name="大頭貼" ColumnName="大頭貼" />
+                <ScalarProperty Name="點數" ColumnName="點數" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="旅程包">
+            <EntityTypeMapping TypeName="team2Model.旅程包">
+              <MappingFragment StoreEntitySet="旅程包">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="標題" ColumnName="標題" />
+                <ScalarProperty Name="描述" ColumnName="描述" />
+                <ScalarProperty Name="作者用戶_FK" ColumnName="作者用戶_FK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="旅程包_link">
+            <EntityTypeMapping TypeName="team2Model.旅程包_link">
+              <MappingFragment StoreEntitySet="旅程包_link">
+                <ScalarProperty Name="旅程包_FK" ColumnName="旅程包_FK" />
+                <ScalarProperty Name="文章_FK" ColumnName="文章_FK" />
+                <ScalarProperty Name="索引" ColumnName="索引" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="提問">
+            <EntityTypeMapping TypeName="team2Model.提問">
+              <MappingFragment StoreEntitySet="提問">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="問題" ColumnName="問題" />
+                <ScalarProperty Name="回答" ColumnName="回答" />
+                <ScalarProperty Name="提問用戶_FK" ColumnName="提問用戶_FK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="評級">
+            <EntityTypeMapping TypeName="team2Model.評級">
+              <MappingFragment StoreEntitySet="評級">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="分數" ColumnName="分數" />
+                <ScalarProperty Name="評分用戶_FK" ColumnName="評分用戶_FK" />
+                <ScalarProperty Name="文章_FK" ColumnName="文章_FK" />
+                <ScalarProperty Name="評論" ColumnName="評論" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="圖片">
+            <EntityTypeMapping TypeName="team2Model.圖片">
+              <MappingFragment StoreEntitySet="圖片">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="上傳用戶_FK" ColumnName="上傳用戶_FK" />
+                <ScalarProperty Name="路徑" ColumnName="路徑" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="文章Hashtag" TypeName="team2Model.文章Hashtag" StoreEntitySet="文章Hashtag">
+            <EndProperty Name="Hashtag">
+              <ScalarProperty Name="Id" ColumnName="Hashtag_FK" />
+            </EndProperty>
+            <EndProperty Name="文章">
+              <ScalarProperty Name="Id" ColumnName="文章_FK" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="用戶Favorite" TypeName="team2Model.用戶Favorite" StoreEntitySet="用戶Favorite">
+            <EndProperty Name="文章">
+              <ScalarProperty Name="Id" ColumnName="收藏文章_FK" />
+            </EndProperty>
+            <EndProperty Name="用戶">
+              <ScalarProperty Name="Id" ColumnName="用戶_FK" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="用戶Hashtag" TypeName="team2Model.用戶Hashtag" StoreEntitySet="用戶Hashtag">
+            <EndProperty Name="Hashtag">
+              <ScalarProperty Name="Id" ColumnName="Hashtag_FK" />
+            </EndProperty>
+            <EndProperty Name="用戶">
+              <ScalarProperty Name="Id" ColumnName="用戶_FK" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

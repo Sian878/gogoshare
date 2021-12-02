@@ -1,0 +1,40 @@
+﻿@using GoGoShare.Models
+@model List<Hashtag>
+
+<table class="table table-bordered" id="hashtags-table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th class="max-width">名稱</th>
+            <th>類別</th>
+            @*<th>編輯</th>*@
+            <th>刪除</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var hashtag in Model)
+        {
+            <tr hashtag-id="@hashtag.Id"> @*這裡要改*@
+                <td class="text-nowrap align-middle titleTxt">@hashtag.Id</td>
+                <td class="text-nowrap align-middle titleTxt"><a href="~/Article?id=@hashtag.Id#抬頭">@hashtag.名稱</a></td>
+                <td class="text-nowrap align-middle dateTxt">@hashtag.類別</td>
+                @*<td class="text-center align-middle">
+                    <div class="btn-group align-top">
+                        <button onclick="window.location.href='/Post?id=@hashtag.Id#editor'" class="btn btn-sm btn-outline-secondary badge" type="button" data-toggle="modal" data-target="#user-form-modal">Edit</button>
+                    </div>
+                </td>*@
+                <td class="text-center align-middle">
+                    <div class="btn-group align-top">
+                        <button class="btn btn-sm btn-outline-danger badge" type="button"><i class="fa fa-trash"></i></button>
+                    </div>
+                </td>
+            </tr>
+        }
+        @if (Model.Count == 0)
+        {
+            <tr>
+                <td class="text-nowrap align-middle titleTxt" colspan="5">無相符搜尋結果</td>
+            </tr>
+        }
+    </tbody>
+</table>

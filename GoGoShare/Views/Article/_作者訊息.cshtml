@@ -1,0 +1,26 @@
+﻿@using GoGoShare.Models
+@model 用戶
+
+
+<div class="about-author d-flex p-4 bg-light">
+    @if (Model is null)
+    {
+        <div class="bio mr-5">
+            <img src="../../images/初始照片.jpg" alt="Image placeholder" class="img-fluid mb-4" style="max-height: 115px;">
+        </div>
+        <div class="desc">
+            <h3 class="mb-3 font-italic">已刪除的用戶</h3>
+        </div>
+    }
+    else
+    {
+        <div class="bio mr-5">
+            <img src="../../images/@Model.大頭貼" alt="Image placeholder" class="img-fluid mb-4" style="max-height: 115px;">
+        </div>
+        <div class="desc">
+            <h3 class="mb-3">@Model.名字</h3>
+            <p>連絡電話: @Model.手機</p>
+            <p>連絡信箱: @Model.帳號</p>
+        </div>
+    }
+</div>

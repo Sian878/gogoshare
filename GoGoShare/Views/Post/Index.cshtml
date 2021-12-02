@@ -1,0 +1,330 @@
+﻿@using GoGoShare.Models
+@model PostPage
+
+@{
+    ViewBag.Title = "發表旅程";
+    //ViewBag.isScroll = "true";
+}
+
+@section HtmlHeadEnd{
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <link rel="stylesheet" href="~/Content/post.css" />
+    <link rel="stylesheet" href="https://cdn.quilljs.com/1.3.6/quill.snow.css" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+}
+
+@Html.Partial("_貼文抬頭", Model.文章)
+
+@Html.Partial("_編輯區域", Model.文章)
+
+@section HtmlBodyEnd{
+    <script src="https://kit.fontawesome.com/af1cff1fa5.js" crossorigin="anonymous"></script>
+    <style type="text/css">
+        button.ui-datepicker-trigger {
+            border: none;
+            margin-left: 0.5rem;
+        }
+    </style>
+
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script src="~/Scripts/jquery-3.6.0.min.js"></script>
+    <script src="~/Scripts/jquery-ui.min.js"></script>
+    <script src="~/Scripts/jquery.ui.datepicker-zh-TW.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8q-CRnbCjT2rSYG3AWNMsrRAtKRxd9N0&callback=initAutocomplete&libraries=places&v=weekly" async></script>
+
+    <script>
+        $(function () {
+
+            //$("#pStartDate,#pEndDate").datepicker({
+            //    dateFormat: 'yy/mm/dd',
+            //    showOn: "both",
+            //    buttonImage: "../images/calendar.png",
+            //    buttonText: "請挑選日期",
+            //    changeYear: true,
+            //    changeMonth: true
+            //});
+
+            $("input[name=ppNumber]").spinner({
+                max: 10, min: 1
+            });
+            $('span.ui-spinner').css('width', '100%');
+
+            // 預設照片
+            var firstImg = "../images/@Html.Raw(string.IsNullOrEmpty(Model.文章.Get圖片路徑()) ? "post_img_1_s.jpg" : Model.文章.Get圖片路徑())";
+            $(".preview").css("background-image", "url(" + firstImg + ")");
+
+            // 照片更換
+
+            $("#pUpload").change(function () {
+                $(".preview").css("background-image", "url()");
+                $("#preview .uploadImg").html("");
+                previewImg(this.files);
+            });
+
+            function previewImg(files) {
+                if (files.length == 0) {
+                    return;
+                }
+                var file = files[0];
+                var pic = new FileReader();
+
+                pic.onload = function () {
+                    var img = $("<img>").attr({ src: pic.result });
+                    $("#preview .uploadImg ").html(img);
+                };
+                pic.readAsDataURL(file);
+            }
+
+            $(".pFormInput").focus(function () {
+                $(this).css({ "border-color": "#56b4ef", "box-shadow": "0px 0px 3px 1px #c8def0" });
+            });
+            $(".pFormInput").blur(function () {
+                $(this).css({ "border-color": "", "box-shadow": "" });
+            });
+
+            //標題
+            var rule1 = /^.{3,20}$/;
+            $("#pTitle").blur(function () {
+                if (rule1.test($(this).val())) {
+                    $('.errorMsg1').text('');
+                    $(this).css({ "border-color": "#40E0D0", "box-shadow": "0px 0px 3px 1px #c8def0" });
+                }
+                else {
+                    $('.errorMsg1').text('*請輸入至少3-5字標題*');
+                    $(this).css({ "border-color": "#FA8072", "box-shadow": "0px 0px 3px 1px #c8def0" })
+                }
+            });
+
+            //開始日期
+            $("input[name=pStartDate]").blur(function () {
+                if ($(this).val() != '') {
+                    $('.errorMsg2').text('');
+                    $(this).css({ "border-color": "#40E0D0", "box-shadow": "0px 0px 3px 1px #c8def0" });
+                }
+                else {
+                    $('.errorMsg2').text('*請選擇開始日期及時間*');
+                    $(this).css({ "border-color": "#FA8072", "box-shadow": "0px 0px 3px 1px #c8def0" })
+                }
+            });
+
+            //結束日期
+            $("input[name=pEndDate]").blur(function () {
+                if ($(this).val() != '') {
+                    $('.errorMsg3').text('');
+                    $(this).css({ "border-color": "#40E0D0", "box-shadow": "0px 0px 3px 1px #c8def0" });
+                }
+                else {
+                    $('.errorMsg3').text('*請選擇結束日期及時間*');
+                    $(this).css({ "border-color": "#FA8072", "box-shadow": "0px 0px 3px 1px #c8def0" })
+                }
+            });
+
+            //時段
+            var rule4 = /^\d|..$/;
+            $("#pTimezone").blur(function () {
+                if (rule4.test($(this).val())) {
+                    $('.errorMsg4').text('');
+                    $(this).css({ "border-color": "#40E0D0", "box-shadow": "0px 0px 3px 1px #c8def0" });
+                }
+                else {
+                    $('.errorMsg4').text('*請輸入完整的時段*');
+                    $(this).css({ "border-color": "#FA8072", "box-shadow": "0px 0px 3px 1px #c8def0" })
+                }
+            });
+
+            //接待人數
+            $("input[name=ppNumber]").blur(function () {
+                if ($(this).val() != '') {
+                    $('.errorMsg5').text('');
+                    $(this).css({ "border-color": "#40E0D0", "box-shadow": "0px 0px 3px 1px #c8def0" });
+                }
+                else {
+                    $('.errorMsg5').text('*請選擇人數上限*');
+                    $(this).css({ "border-color": "#FA8072", "box-shadow": "0px 0px 3px 1px #c8def0" })
+                }
+            });
+
+        })
+    </script>
+    <script>
+
+        //編輯器
+        var Font = Quill.import('formats/font');
+        Font.whiteList = ['mirza', 'roboto'];
+        Quill.register(Font, true);
+
+        var quill = new Quill('#editor-container', {
+            modules: {
+                toolbar: [
+                    [{ header: [1, 2, false] }],
+                    ['bold', 'italic'],
+                    ['link', 'blockquote', 'code-block', 'image'],
+                    [{ list: 'ordered' }, { list: 'bullet' }]
+                ]
+            },
+            scrollingContainer: '#scrolling-container',
+            placeholder: '開始分享您的旅程..',
+            theme: 'snow'
+        });
+
+        @if (@Model.文章.內容.StartsWith("{"))
+        {
+            @Html.Raw($"quill.setContents({@Html.Raw(@Model.文章.內容)});")
+        }
+        else if (@Model.文章.內容 == "") {}
+        else
+        {
+            @Html.Raw($"quill.clipboard.dangerouslyPasteHTML(unescape('{@Html.Raw(@Model.文章.內容)}'));")
+        }
+
+
+var form = document.querySelector('form');
+
+        $("#postSubmit").click(function () {
+    // Populate hidden form on submit
+    //var about = document.querySelector('input[name=about]');
+    //about.value = JSON.stringify(quill.getContents());
+
+    //$(":input").blur(function () {
+    //    if ($(this).val() != '') {
+
+    //    }
+    //    else {
+    //        alert("請勿空白!");
+    //    }
+    //});
+
+    var content = escape(quill.root.innerHTML);
+    console.log("contents:", content);
+            $("#pContent").val(content);
+
+
+    Swal.fire({
+    title: '確定要新增旅程嗎?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '儲存文章',
+                cancelButtonText: '再等一下',
+            }).then((result) => {
+            if (result.isConfirmed) {
+                    $.ajax({
+                type: 'Post',
+                        url: '@Model.actionUrl',
+                        data: new FormData(form),
+                        contentType: false,
+                        processData: false,
+                        success: function (e) {
+                        console.log(e);
+                        if (e == null || e == '')
+                            Swal.fire('旅程儲存成功!\n恭喜您獲得1000點');
+                        else
+                            Swal.fire('旅程儲存失敗');
+
+                    },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                        swal("Error!", "It was succesfully deleted!", "success");
+                    }
+                    //}).done(function () {
+                    //    Swal.fire('Save Success')
+                });
+                }
+            })
+
+        });
+
+
+    </script>
+    <script src="~/Scripts/Hashtag群組.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                type: 'GET',
+                url: '/Post/GetHashtags'
+            }).done(function (hashtags) {
+                new Hashtag群組(hashtags, { 編輯模式: true }).at('#Hashtag選擇區');
+
+                var hashtagInput = $('input[list="hashtags"]');
+                @foreach (var AAA in Model.文章.GetHashtag清單())
+                {
+                    @Html.Raw($"hashtagInput.val('{AAA.名稱}').change();");
+                }
+                hashtagInput.val("");
+            });
+        });
+    </script>
+    <script>
+        function initAutocomplete() {
+            const map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: -33.8688, lng: 151.2195 },
+                zoom: 13,
+                mapTypeId: "roadmap",
+            });
+            // Create the search box and link it to the UI element.
+            const input = document.getElementById("pac-input");
+            const searchBox = new google.maps.places.SearchBox(input);
+
+            map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+            // Bias the SearchBox results towards current map's viewport.
+            map.addListener("bounds_changed", () => {
+                searchBox.setBounds(map.getBounds());
+            });
+
+            let markers = [];
+
+            // Listen for the event fired when the user selects a prediction and retrieve
+            // more details for that place.
+            searchBox.addListener("places_changed", () => {
+                const places = searchBox.getPlaces();
+
+                if (places.length == 0) {
+                    return;
+                }
+
+                // Clear out the old markers.
+                markers.forEach((marker) => {
+                    marker.setMap(null);
+                });
+                markers = [];
+
+                // For each place, get the icon, name and location.
+                const bounds = new google.maps.LatLngBounds();
+
+                places.forEach((place) => {
+                    if (!place.geometry || !place.geometry.location) {
+                        console.log("Returned place contains no geometry");
+                        return;
+                    }
+
+                    const icon = {
+                        url: place.icon,
+                        size: new google.maps.Size(71, 71),
+                        origin: new google.maps.Point(0, 0),
+                        anchor: new google.maps.Point(17, 34),
+                        scaledSize: new google.maps.Size(25, 25),
+                    };
+
+                    // Create a marker for each place.
+                    markers.push(
+                        new google.maps.Marker({
+                            map,
+                            icon,
+                            title: place.name,
+                            position: place.geometry.location,
+                        })
+                    );
+                    if (place.geometry.viewport) {
+                        // Only geocodes have viewport.
+                        bounds.union(place.geometry.viewport);
+                    } else {
+                        bounds.extend(place.geometry.location);
+                    }
+                });
+                map.fitBounds(bounds);
+            });
+        }
+    </script>
+
+
+}

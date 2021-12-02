@@ -1,0 +1,23 @@
+﻿body {
+    background: #f8f8f8
+}
+
+.container {
+    padding-top: 30px;
+}
+
+thead {
+    background-color: #fd7e14;
+    text-align:center;
+    color:white;
+    letter-spacing:0.5px;
+}
+
+.titleTxt{
+    font-weight:500!important;
+}
+
+.dateTxt{
+    text-align:center;
+    color:darkgray;
+}

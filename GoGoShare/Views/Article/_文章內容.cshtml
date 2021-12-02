@@ -1,0 +1,18 @@
+﻿@model 文章
+
+<h2 class="mb-3">@Model.標題</h2>
+<div id="文章內容">@Model.內容</div>
+<div class="tag-widget post-tag-container mb-5 mt-5">
+    <div class="tagcloud">
+        @{
+            var Hashtag清單 = Model.GetHashtag清單();
+            foreach (var Hashtag in Hashtag清單)
+            {
+                <a href="/Search?hashtag=@Hashtag.Id" class="tag-cloud-link">@Hashtag.名稱</a>
+            }
+        }
+    </div>
+    <div class="text-right">
+        <span>發表於 @Model.文章註冊時間</span>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+﻿@using GoGoShare.Models
+@model List<文章>
+
+@foreach (var 文章 in Model)
+{
+    <div class="block-21 mb-4 d-flex">
+        <a class="blog-img mr-4" style="background-image: url(../../images/@文章.Get圖片路徑());"></a>
+        <div class="text">
+            <h3 class="heading"><a href="/Article?id=@文章.Id">@文章.標題</a></h3>
+            <div class="meta">
+                <div><span class="fa fa-calendar"></span> @文章.文章註冊時間</div>
+                <div><span class="fa fa-user"></span> @文章.Get作者().名字</div>
+                <div><span class="fa fa-comment"></span> @文章.Get評論數()</div>
+            </div>
+        </div>
+    </div>
+}

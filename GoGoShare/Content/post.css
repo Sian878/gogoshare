@@ -1,0 +1,289 @@
+﻿
+#form-container {
+    width: 500px;
+}
+
+
+.p_row{
+    display:flex;
+    flex-wrap:wrap;
+    margin-top: 15px;
+}
+
+.col{
+    flex-grow:1;
+}
+
+
+
+.pFormInput {
+    border: 1px solid darkgray;
+    border-radius: 3px;
+    padding-left: 10px;
+    font-size: 16px;
+    outline: none;
+    margin: 5px 0;
+    letter-spacing: 1px;
+}
+
+.pPoint{
+    font-size:1rem;
+    text-align:left;
+    padding:1px 30px ;
+
+}
+
+/*.pFormSelect {
+    border: 1px solid darkgray;
+    border-radius: 3px;
+    padding-left: 10px;
+    font-size: 16px;
+    outline: none;
+    margin: 5px 0;
+    letter-spacing: 1px;
+}*/
+
+#form-container .postform_R {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    height: auto;
+}
+
+.postform_R .preview {
+    width: 100%;
+    height: 40vh;
+    background-size: cover;
+    background-position: center;
+    margin-bottom:1rem;
+}
+
+
+.preview .uploadImg {
+    display: inline-block;
+    background-size: cover;
+    background-position: center;
+}
+
+.postform_R .preview img {
+    width:auto;
+    height: 40vh;
+}
+
+
+.row.form-group {
+    padding-left: 15px;
+    padding-right: 30px;
+}
+
+.btn {
+    margin: 0px auto;
+}
+
+button.pUpload {
+    margin-bottom: 10px;
+    background-color: #000;
+    color: #fff;
+    padding: 0.6rem;
+    width: 100%;
+    border: none;
+    z-index: 1;
+}
+
+.pUpload:hover {
+    background-color: #fff;
+    color: #f15d30;
+    text-decoration: none;
+    border: 0.5px solid #f15d30;
+    z-index: 1;
+}
+
+
+#editor-container {
+    height: 50vh;
+}
+
+.postIntro{
+    color:#000;
+    padding:1rem;
+    font-size:1rem;
+    letter-spacing:0.5px;
+    font-weight:bold;
+}
+.post-btn{
+    padding:5px 8px;
+    margin:0 4px;
+    border-radius:5px;
+    border:unset;
+    font-size:1rem;
+    letter-spacing:0.5px;
+
+}
+
+.postform_L{
+    margin:0 0 1.5rem 0;
+}
+
+.postLabel {
+    letter-spacing: 0.3px;
+    color: black;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 0 18px 0 0;
+}
+
+
+.postLabelPeo {
+    letter-spacing: 0.3px;
+    color: black;
+    font-size: 1rem;
+    font-weight: bold;
+    padding:0 60px 0 0;
+}
+
+.fas {
+    padding: 0 8px 1px 0;
+}
+.far {
+    padding: 0 8px 1px 0;
+}
+
+hr{
+    margin-top:0;
+}
+
+.cbxType{
+    color:black;
+}
+
+.pFormInputCbx{
+    margin-right:10px;
+}
+
+.errMsg {
+    color: red;
+    font-size: 0.8em;
+    font-weight: bold;
+}
+
+.errorMsg1, .errorMsg2, .errorMsg3, .errorMsg4, .errorMsg5 {
+    color: red;
+    font-size: 0.8em;
+}
+
+/*map testing*/
+#map {
+    height:500px;
+}
+
+#infowindow-content .title {
+    font-weight: bold;
+}
+
+#infowindow-content {
+    display: none;
+}
+
+#map #infowindow-content {
+    display: inline;
+}
+
+.pac-card {
+    background-color: #fff;
+    border: 0;
+    border-radius: 2px;
+    box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+    margin: 10px;
+    padding: 0 0.5em;
+    font: 400 18px Roboto, Arial, sans-serif;
+    overflow: hidden;
+    font-family: Roboto;
+    padding: 0;
+}
+
+#pac-container {
+    padding-bottom: 12px;
+    margin-right: 12px;
+}
+
+.pac-controls {
+    display: inline-block;
+    padding: 5px 11px;
+}
+
+    .pac-controls label {
+        font-family: Roboto;
+        font-size: 13px;
+        font-weight: 300;
+    }
+
+#pac-input {
+    background-color: #fff;
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+    margin-left: 12px;
+    padding: 0 11px 0 13px;
+    text-overflow: ellipsis;
+    width: 400px;
+}
+
+    #pac-input:focus {
+        border-color: #4d90fe;
+    }
+
+#title {
+    color: #fff;
+    background-color: #4d90fe;
+    font-size: 25px;
+    font-weight: 500;
+    padding: 6px 12px;
+}
+
+#target {
+    width: 345px;
+}
+
+#submitBtn{
+position:center;
+margin:2rem auto;
+}
+
+#postSubmit {
+    margin: 0 22px;
+}
+#ViewMyPost {
+    margin: 0 22px;
+}
+
+.pFormDateInput {
+    width: 15.8rem;
+    border: 1px solid darkgray;
+    border-radius: 3px;
+    padding-left: 10px;
+    font-size: 16px;
+    outline: none;
+    margin: 5px 0;
+    letter-spacing: 1px;
+}
+
+@media screen and (max-width:1182px) {
+}
+
+@media screen and (max-width:720px) {
+    .row {
+        display: flex;
+    }
+
+    .postform {
+        align-content: center;
+    }
+
+    .postform_L {
+        padding: 0 1.8rem;
+        margin: 0 0 1.5rem 0;
+        align-items: center;
+    }
+}
+    
+

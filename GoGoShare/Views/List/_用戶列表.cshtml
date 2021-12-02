@@ -1,0 +1,40 @@
+﻿@using GoGoShare.Models
+@model List<用戶>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>名字</th>
+            <th>帳號</th>
+            <th>密碼</th>
+            <th>手機</th>
+            <th class="max-width">註冊日期</th>
+            <th>點數</th>
+            <th>編輯</th>
+            <th>刪除</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var 用戶 in Model)
+        {
+        <tr user-id="@用戶.Id">
+            <td class="text-nowrap align-middle titleTxt"><a href="~/Search?user=@用戶.Id#抬頭">@用戶.名字</a></td>
+            <td class="text-nowrap align-middle titleTxt">@用戶.帳號</td>
+            <td class="text-nowrap align-middle titleTxt">@用戶.密碼</td>
+            <td class="text-nowrap align-middle titleTxt">@用戶.手機</td>
+            <td class="text-nowrap align-middle dateTxt">@用戶.註冊日期</td>
+            <td class="text-nowrap align-middle titleTxt">@用戶.點數</td>
+            <td class="text-center align-middle">
+                <div class="btn-group align-top">
+                    <button onclick="window.location.href='/Member?id=@用戶.Id#editor'" class="btn btn-sm btn-outline-secondary badge" type="button" data-toggle="modal" data-target="#user-form-modal">Edit</button>
+                </div>
+            </td>
+            <td class="text-center align-middle">
+                <div class="btn-group align-top">
+                    <button class="btn btn-sm btn-outline-danger badge" type="button"><i class="fa fa-trash"></i></button>
+                </div>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
