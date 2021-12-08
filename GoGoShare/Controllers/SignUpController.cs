@@ -122,8 +122,8 @@ namespace GoGoShare.Controllers
 
             bool enableSSL = true;
             //填入寄送方email和密碼
-            string emailFrom = "gogoshare7@gmail.com";
-            string password = "daan9806226";
+            string emailFrom = "8888888888888";
+            string password = "88888888888";
             //網站網址
             string webpath = Request.Url.Scheme + "://" + Request.Url.Authority + Url.Content("~/");
 
